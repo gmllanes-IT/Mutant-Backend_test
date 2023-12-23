@@ -50,28 +50,24 @@
 
             var productId = $(this).data('product-id');
 
-            // Add CSRF token to the data
             var data = {
                 "_token": "{{ csrf_token() }}",
                 "productId": productId
             };
 
-            // Make AJAX request to addToCart endpoint
             $.ajax({
                 type: 'POST',
                 url: '/cart/add/' + productId,
-                data: data, // Include CSRF token in the request
+                data: data, 
                 dataType: 'json',
                 success: function(response) {
-                    // Update the total quantity in the navbar
                     $('#totalQuantity').text(response.totalQuantity);
 
-                    // Display a SweetAlert success message
                     Swal.fire({
                         icon: 'success',
                         title: 'Product added to cart!',
                         showConfirmButton: false,
-                        timer: 1500 // Automatically close after 1.5 seconds
+                        timer: 1500 
                     });
                 },
                 error: function(error) {

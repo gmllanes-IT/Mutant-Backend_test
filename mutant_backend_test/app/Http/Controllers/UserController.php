@@ -76,7 +76,6 @@ class UserController extends Controller
     }
     public function updateUser(Request $request, User $user)
     {
-        // Validate and update the user (you may want to add additional validation)
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -91,10 +90,8 @@ class UserController extends Controller
             'role' => $request->input('role'),
         ]);
 
-        // Redirect to the user list with a success message
         return redirect()->route('user.list')->with('success', 'User updated successfully.');
 
-        // Redirect to the user list with a success message
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 

@@ -25,13 +25,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>
-                                    <!-- Edit User Action -->
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
 
-                                    <!-- Delete User Action -->
                                     <form method="post" action="{{ route('users.destroy', ['user' => $user->id]) }}" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
@@ -39,7 +37,6 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
-                                    <!-- Include Edit User Modal -->
                                     @include('modals.edit-user', ['user' => $user])
 
                                 </td>

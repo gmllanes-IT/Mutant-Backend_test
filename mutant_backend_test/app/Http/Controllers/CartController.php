@@ -45,15 +45,12 @@ class CartController extends Controller
         $user = auth()->user();
         $cartItems = Cart::with('product')->where('user_id', $user->id)->get();
 
-        // Calculate total quantity of items in the cart
         $totalQuantity = $cartItems->sum('quantity');
 
-        // Calculate total cost of items in the cart
         $totalCost = $cartItems->sum(function ($cartItem) {
             return $cartItem->quantity * $cartItem->product->price;
         });
 
-        // Set the cart count in the session
         session(['cartCount' => $totalQuantity]);
 
         return view('cart.view', compact('cartItems', 'totalQuantity', 'totalCost'));
@@ -94,11 +91,6 @@ class CartController extends Controller
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
-    }
-
-    private function clearCart($userId)
-    {
-        Cart::where('user_id', $userId)->delete();
     }
     
 }

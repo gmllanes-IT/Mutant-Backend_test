@@ -28,10 +28,16 @@
         </div>
         <div class="col text-end">
             <p>Total Cost in Cart: <strong>${{ $totalCost }}</strong></p>
-            <form action="{{ route('payment.form') }}" method="get">
-                @csrf
-                <button type="submit" class="btn btn-success">Proceed to Payment</button>
+            <form action="/session" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="total" value="{{ $totalCost }}">
+                @foreach ($cartItems as $cartItem)
+                <input type="hidden" name="products[]" value="{{ json_encode($cartItem) }}">
+                @endforeach
+                <button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i> Proceed to Payment</button>
             </form>
+
+
         </div>
     </div>
     @endif
@@ -93,6 +99,15 @@
     });
 </script>
 
-
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '{{ session('
+        success ') }}',
+    });
+</script>
+@endif
 
 @endsection
