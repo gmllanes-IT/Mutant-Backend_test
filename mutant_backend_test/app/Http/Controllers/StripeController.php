@@ -52,7 +52,7 @@ class StripeController extends Controller
                 'success_url'         => url('/success') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url'          => url('/checkout'),
                 'metadata'            => [
-                    'user_id' => $user->id, // Assuming $user is the authenticated user
+                    'user_id' => $user->id, 
                 ],
             ]);
 

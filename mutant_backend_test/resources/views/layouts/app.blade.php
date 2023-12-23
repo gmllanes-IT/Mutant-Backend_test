@@ -38,13 +38,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/home') }}">Home</a>
                         </li>
+                        @auth
+                        @if(auth()->user()->role === 'user')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('products.main') }}">Products</a>
                         </li>
-                        @auth
-                        @if(auth()->user()->role === 'admin')
+
+                        @elseif(auth()->user()->role === 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/products') }}">Products</a>
+                            <a class="nav-link" href="{{ route('productsManager.index') }}">Products Manager</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.list') }}">User List</a>
@@ -69,10 +71,15 @@
                         </li>
                         @endif
                         @else
+                        @auth
+                        @if(auth()->user()->role === 'user')
                         <a class="nav-link" href="{{ route('cart.view') }}">
                             <i class="fas fa-shopping-cart"></i>
                             Cart <span id="totalQuantity">{{ session('cartCount') ?? 0 }}</span>
                         </a>
+                        @endif
+                        @endauth
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->first_name }}
@@ -83,8 +90,7 @@
                                     {{ __('Profile') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -95,6 +101,7 @@
                         </li>
                         @endguest
                     </ul>
+
                 </div>
             </div>
         </nav>

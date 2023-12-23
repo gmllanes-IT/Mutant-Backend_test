@@ -43,9 +43,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::put('/users/{user}', [UserController::class, 'updateUser'])->name('users.update');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
         Route::resource('products', ProductController::class);
+        Route::get('products-manager', [ProductController::class, 'index'])->name('productsManager.index');
     });
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', 'role:user'])->group(function () {
         Route::get('/products', [UserProductController::class, 'main'])->name('products.main');
 
         Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');

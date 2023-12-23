@@ -28,6 +28,8 @@
     </div>
 </div>
 <br>
+
+@if (Auth::user()->role === 'user')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -66,7 +68,7 @@
         </div>
     </div>
 </div>
-
+@endif
 @if(session('success'))
 <script>
     Swal.fire({

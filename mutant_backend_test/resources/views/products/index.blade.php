@@ -64,8 +64,7 @@
     Swal.fire({
         icon: 'success',
         title: 'Success!',
-        text: '{{ session('
-        success ') }}',
+        text: '{{ session('success') }}',
     });
 </script>
 @endif
